@@ -32,12 +32,31 @@
             color: white;
             padding: 40px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><path d="M0,200 Q100,150 200,180 T400,160 T600,200 T800,180 T1000,200 T1200,180" stroke="rgba(255,255,255,0.2)" stroke-width="3" fill="none"/><path d="M0,250 Q100,200 200,230 T400,210 T600,250 T800,230 T1000,250 T1200,230" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/></svg>') center/cover no-repeat;
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
         
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
         .header .tagline {
@@ -45,42 +64,136 @@
             opacity: 0.95;
             margin-top: 10px;
         }
+
+        .profit-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            min-width: 140px;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .chart-icon {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
         
         .prizes {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
             padding: 30px;
             border-bottom: 3px solid #FF6B6B;
+            position: relative;
+        }
+
+        .prizes::after {
+            content: '💎💵📊';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 3em;
+            opacity: 0.1;
         }
         
         .prizes h2 {
             color: #FF6B6B;
             margin-bottom: 20px;
             text-align: center;
+            font-size: 2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
         .prize-item {
             background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
             border-left: 5px solid #4ECDC4;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .prize-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .prize-icon {
+            font-size: 2.5em;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .prize-content {
+            flex: 1;
         }
         
         .prize-item strong {
             color: #FF6B6B;
-            font-size: 1.1em;
+            font-size: 1.3em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .prize-amount {
+            color: #2ecc71;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 5px;
         }
         
         .criteria {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 20px 30px;
+            padding: 30px;
             border-bottom: 3px solid #FF8E53;
+            position: relative;
+        }
+
+        .criteria::before {
+            content: '📊';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5em;
+            opacity: 0.1;
         }
         
         .criteria h3 {
             color: #c0392b;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .criteria h3::before {
+            content: '✅';
+            font-size: 1.2em;
         }
         
         .criteria ul {
@@ -89,16 +202,28 @@
         }
         
         .criteria li {
-            padding: 8px 0;
+            padding: 12px 20px;
             color: #c0392b;
             font-weight: 500;
+            background: rgba(255,255,255,0.5);
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #2ecc71;
+            font-size: 1.1em;
+            transition: transform 0.3s;
+        }
+
+        .criteria li:hover {
+            transform: translateX(10px);
+            background: rgba(255,255,255,0.8);
         }
         
         .criteria li:before {
             content: "✓ ";
             margin-right: 10px;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.3em;
+            color: #2ecc71;
         }
         
         .form-section {
@@ -199,11 +324,34 @@
         
         .deadline {
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
             color: #155724;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deadline::before {
+            content: '⏰';
+            position: absolute;
+            left: 30px;
+            font-size: 2.5em;
+            opacity: 0.3;
+        }
+
+        .deadline::after {
+            content: '🎯';
+            position: absolute;
+            right: 30px;
+            font-size: 2.5em;
+            opacity: 0.3;
+        }
+
+        .deadline-text {
+            position: relative;
+            z-index: 1;
         }
         
         .help-text {
@@ -252,32 +400,75 @@
         }
 
         .file-upload-note {
-            background: #fff3cd;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
             color: #856404;
             padding: 15px;
             border-radius: 8px;
             margin-top: 10px;
             border-left: 4px solid #ffc107;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-upload-note::before {
+            content: '💡';
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>AutoTradeGenius Strategy Competition</h1>
-            <p class="tagline">Think you've got the BEST trading strategy? Prove it!</p>
+            <div class="header-content">
+                <h1>AutoTradeGenius Strategy Competition</h1>
+                <p class="tagline">Think you've got the BEST trading strategy? Prove it!</p>
+                
+                <div class="profit-stats">
+                    <div class="stat-card">
+                        <div class="chart-icon">📈</div>
+                        <div class="stat-value">$5,000</div>
+                        <div class="stat-label">USDT Prize Pool</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="chart-icon">💰</div>
+                        <div class="stat-value">50%+</div>
+                        <div class="stat-label">Win Rate Required</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="chart-icon">🎯</div>
+                        <div class="stat-value">1:2+</div>
+                        <div class="stat-label">Risk/Reward</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="prizes">
-            <h2>PRIZES</h2>
+            <h2>🏆 PRIZES 🏆</h2>
             <div class="prize-item">
-                <strong>1st Place:</strong> $5,000 USDT
+                <div class="prize-icon">🥇</div>
+                <div class="prize-content">
+                    <strong>1st Place</strong>
+                    <div class="prize-amount">$5,000 USDT</div>
+                    <p style="color: #666; margin-top: 5px;">💸 Instant cash reward + Recognition</p>
+                </div>
             </div>
             <div class="prize-item">
-                <strong>2nd Place:</strong> Full Access to AutoTradeGenius Trading Bot for 1 Year
+                <div class="prize-icon">🥈</div>
+                <div class="prize-content">
+                    <strong>2nd Place</strong>
+                    <div class="prize-amount">1 Year Bot Access</div>
+                    <p style="color: #666; margin-top: 5px;">🤖 Full AutoTradeGenius Trading Bot</p>
+                </div>
             </div>
             <div class="prize-item">
-                <strong>3rd Place:</strong> 1-Year Subscription to AutoTradeGenius Trading Bridge Service
+                <div class="prize-icon">🥉</div>
+                <div class="prize-content">
+                    <strong>3rd Place</strong>
+                    <div class="prize-amount">1 Year Bridge Service</div>
+                    <p style="color: #666; margin-top: 5px;">🌉 AutoTradeGenius Trading Bridge</p>
+                </div>
             </div>
         </div>
         
@@ -291,7 +482,9 @@
         </div>
         
         <div class="deadline">
-            Deadline: 31st December 2025
+            <div class="deadline-text">
+                ⏳ Deadline: 31st December 2025 | Don't Miss Out! 🚀
+            </div>
         </div>
         
         <!-- SUCCESS/ERROR MESSAGES -->
@@ -307,7 +500,12 @@
         </div>
 
         <!-- FORM STARTS HERE -->
-        <form class="form-section" id="competitionForm" action="https://formspree.io/f/mgvnznjj" method="POST" enctype="multipart/form-data">
+        <form class="form-section" id="competitionForm" action="https://formsubmit.co/autotradegenius@gmail.com" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_subject" value="New Trading Strategy Competition Entry">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://autotradegenius.github.io/Competition?success=true">
+            
             <h2 style="margin-bottom: 30px; color: #FF6B6B;">Participant Information</h2>
             
             <div class="form-group">
@@ -374,14 +572,81 @@
             
             <div class="form-group">
                 <label>Win Rate (%) <span class="required">*</span></label>
-                <input type="number" name="winRate" required min="50" max="100" step="0.1" placeholder="Minimum 50%">
-                <p class="help-text">Must be 50% or higher</p>
+                <select name="winRate" required>
+                    <option value="">Select your win rate</option>
+                    <option value="50">50%</option>
+                    <option value="51">51%</option>
+                    <option value="52">52%</option>
+                    <option value="53">53%</option>
+                    <option value="54">54%</option>
+                    <option value="55">55%</option>
+                    <option value="56">56%</option>
+                    <option value="57">57%</option>
+                    <option value="58">58%</option>
+                    <option value="59">59%</option>
+                    <option value="60">60%</option>
+                    <option value="61">61%</option>
+                    <option value="62">62%</option>
+                    <option value="63">63%</option>
+                    <option value="64">64%</option>
+                    <option value="65">65%</option>
+                    <option value="66">66%</option>
+                    <option value="67">67%</option>
+                    <option value="68">68%</option>
+                    <option value="69">69%</option>
+                    <option value="70">70%</option>
+                    <option value="71">71%</option>
+                    <option value="72">72%</option>
+                    <option value="73">73%</option>
+                    <option value="74">74%</option>
+                    <option value="75">75%</option>
+                    <option value="76">76%</option>
+                    <option value="77">77%</option>
+                    <option value="78">78%</option>
+                    <option value="79">79%</option>
+                    <option value="80">80%</option>
+                    <option value="81">81%</option>
+                    <option value="82">82%</option>
+                    <option value="83">83%</option>
+                    <option value="84">84%</option>
+                    <option value="85">85%</option>
+                    <option value="86">86%</option>
+                    <option value="87">87%</option>
+                    <option value="88">88%</option>
+                    <option value="89">89%</option>
+                    <option value="90">90%</option>
+                    <option value="91">91%</option>
+                    <option value="92">92%</option>
+                    <option value="93">93%</option>
+                    <option value="94">94%</option>
+                    <option value="95">95%</option>
+                </select>
+                <p class="help-text">Select your strategy's win rate (Minimum 50%)</p>
             </div>
             
             <div class="form-group">
                 <label>Risk/Reward Ratio <span class="required">*</span></label>
-                <input type="text" name="riskReward" required placeholder="e.g., 1:2, 1:3">
-                <p class="help-text">Must be 1:2 or better</p>
+                <select name="riskReward" required>
+                    <option value="">Select risk/reward ratio</option>
+                    <option value="1:2">1:2</option>
+                    <option value="1:2.5">1:2.5</option>
+                    <option value="1:3">1:3</option>
+                    <option value="1:3.5">1:3.5</option>
+                    <option value="1:4">1:4</option>
+                    <option value="1:4.5">1:4.5</option>
+                    <option value="1:5">1:5</option>
+                    <option value="1:5.5">1:5.5</option>
+                    <option value="1:6">1:6</option>
+                    <option value="1:6.5">1:6.5</option>
+                    <option value="1:7">1:7</option>
+                    <option value="1:7.5">1:7.5</option>
+                    <option value="1:8">1:8</option>
+                    <option value="1:8.5">1:8.5</option>
+                    <option value="1:9">1:9</option>
+                    <option value="1:9.5">1:9.5</option>
+                    <option value="1:10">1:10</option>
+                </select>
+                <p class="help-text">Select your strategy's risk/reward ratio (Minimum 1:2)</p>
             </div>
             
             <div class="form-group">
@@ -395,7 +660,7 @@
                 <textarea name="pineScriptCode" rows="10" placeholder="Paste your full Pine Script code here... No character limit!"></textarea>
                 <p class="help-text">Paste your complete Pine Script code - supports unlimited length</p>
                 <div class="file-upload-note">
-                    <strong>💡 Tip:</strong> You can paste very long Pine Script code directly here, or upload a file below
+                    <span><strong>Tip:</strong> You can paste very long Pine Script code directly here, or upload a file below</span>
                 </div>
             </div>
 
@@ -415,6 +680,12 @@
                 <textarea name="backtesting" placeholder="Describe your backtesting results or provide links to verified trading history"></textarea>
                 <p class="help-text">Optional but highly recommended. Include any performance metrics or links to verified results.</p>
             </div>
+
+            <div class="form-group">
+                <label>Upload Backtesting Screenshots/Proof Images</label>
+                <input type="file" name="backtestingProof" accept="image/*,.pdf" multiple>
+                <p class="help-text">Upload screenshots or images of your backtesting results (Max 10MB per file, multiple files allowed)</p>
+            </div>
             
             <div class="form-group">
                 <label>Why is your strategy NON-REPAINT? <span class="required">*</span></label>
@@ -422,9 +693,20 @@
             </div>
             
             <div class="form-group">
-                <label>Instagram Handle (Optional)</label>
-                <input type="text" name="instagram" placeholder="@yourusername">
-                <p class="help-text">For winner announcement purposes</p>
+                <label>Social Media Handles (Optional)</label>
+                <select name="socialMediaPlatform">
+                    <option value="">Select platform</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="twitter">Twitter/X</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="discord">Discord</option>
+                </select>
+                <input type="text" name="socialMediaHandle" placeholder="@yourusername or your profile link" style="margin-top: 10px;">
+                <p class="help-text">For winner announcement purposes - Share your preferred social media handle</p>
             </div>
             
             <div class="form-group">
@@ -463,41 +745,21 @@
         const successMsg = document.getElementById('successMessage');
         const errorMsg = document.getElementById('errorMessage');
 
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Disable submit button
+        // Check if redirected back with success parameter
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                successMsg.style.display = 'block';
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            // Let form submit naturally
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
-            
-            // Hide previous messages
-            successMsg.style.display = 'none';
-            errorMsg.style.display = 'none';
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    successMsg.style.display = 'block';
-                    form.reset();
-                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    throw new Error('Submission failed');
-                }
-            } catch (error) {
-                errorMsg.style.display = 'block';
-                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Entry';
-            }
         });
     </script>
 </body>
