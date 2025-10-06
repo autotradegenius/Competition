@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Strategy Competition - AutoTradeGenius</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FE6B8B 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header .tagline {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+        
+        .prizes {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-bottom: 3px solid #FF6B6B;
+        }
+        
+        .prizes h2 {
+            color: #FF6B6B;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .prize-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 5px solid #4ECDC4;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .prize-item strong {
+            color: #FF6B6B;
+            font-size: 1.1em;
+        }
+        
+        .criteria {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px 30px;
+            border-bottom: 3px solid #FF8E53;
+        }
+        
+        .criteria h3 {
+            color: #c0392b;
+            margin-bottom: 15px;
+        }
+        
+        .criteria ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .criteria li {
+            padding: 8px 0;
+            color: #c0392b;
+            font-weight: 500;
+        }
+        
+        .criteria li:before {
+            content: "✓ ";
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .form-section {
+            padding: 40px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1em;
+        }
+        
+        .required {
+            color: #dc3545;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #4ECDC4;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: start;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .deadline {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #155724;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .help-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #434343 0%, #000000 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer h3 {
+            margin-bottom: 15px;
+            color: #4ECDC4;
+        }
+        
+        .footer p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #c3e6cb;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #f5c6cb;
+            text-align: center;
+            display: none;
+        }
+
+        .file-upload-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AutoTradeGenius Strategy Competition</h1>
+            <p class="tagline">Think you've got the BEST trading strategy? Prove it!</p>
+        </div>
+        
+        <div class="prizes">
+            <h2>PRIZES</h2>
+            <div class="prize-item">
+                <strong>1st Place:</strong> $5,000 USDT
+            </div>
+            <div class="prize-item">
+                <strong>2nd Place:</strong> Full Access to AutoTradeGenius Trading Bot for 1 Year
+            </div>
+            <div class="prize-item">
+                <strong>3rd Place:</strong> 1-Year Subscription to AutoTradeGenius Trading Bridge Service
+            </div>
+        </div>
+        
+        <div class="criteria">
+            <h3>Entry Criteria:</h3>
+            <ul>
+                <li>Strategy must have <strong>50%+ Win Rate</strong></li>
+                <li>Risk/Reward of <strong>1:2 or better</strong></li>
+                <li>Strategy must be <strong>NON-REPAINT</strong></li>
+            </ul>
+        </div>
+        
+        <div class="deadline">
+            Deadline: 31st December 2025
+        </div>
+        
+        <!-- SUCCESS/ERROR MESSAGES -->
+        <div class="form-section">
+            <div class="success-message" id="successMessage">
+                <h3>✅ Submission Successful!</h3>
+                <p>Thank you for entering the competition. We've received your strategy and will review it shortly.</p>
+            </div>
+            <div class="error-message" id="errorMessage">
+                <h3>❌ Submission Failed</h3>
+                <p>Please check your internet connection and try again. If the problem persists, email us at autotradegenius@gmail.com</p>
+            </div>
+        </div>
+
+        <!-- FORM STARTS HERE -->
+        <form class="form-section" id="competitionForm" action="https://formspree.io/f/mgvnznjj" method="POST" enctype="multipart/form-data">
+            <h2 style="margin-bottom: 30px; color: #FF6B6B;">Participant Information</h2>
+            
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" name="fullName" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" name="email" required placeholder="your.email@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" name="phone" required placeholder="+1 234 567 8900">
+            </div>
+            
+            <div class="form-group">
+                <label>Country/Region <span class="required">*</span></label>
+                <input type="text" name="country" required placeholder="Your country">
+            </div>
+            
+            <div class="form-group">
+                <label>Trading Experience Level <span class="required">*</span></label>
+                <select name="experience" required>
+                    <option value="">Select your experience</option>
+                    <option value="beginner">Beginner (0-1 year)</option>
+                    <option value="intermediate">Intermediate (1-3 years)</option>
+                    <option value="advanced">Advanced (3-5 years)</option>
+                    <option value="expert">Expert (5+ years)</option>
+                </select>
+            </div>
+            
+            <h2 style="margin: 40px 0 30px; color: #FF6B6B;">Trading Strategy Details</h2>
+            
+            <div class="form-group">
+                <label>Strategy Name <span class="required">*</span></label>
+                <input type="text" name="strategyName" required placeholder="Give your strategy a unique name">
+            </div>
+            
+            <div class="form-group">
+                <label>Market Type <span class="required">*</span></label>
+                <select name="marketType" required>
+                    <option value="">Select market type</option>
+                    <option value="crypto">Cryptocurrency</option>
+                    <option value="forex">Forex</option>
+                    <option value="stocks">Stocks</option>
+                    <option value="indices">Indices</option>
+                    <option value="commodities">Commodities</option>
+                    <option value="multiple">Multiple Markets</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Trading Timeframe <span class="required">*</span></label>
+                <select name="timeframe" required>
+                    <option value="">Select timeframe</option>
+                    <option value="scalping">Scalping (Minutes)</option>
+                    <option value="day">Day Trading (Hours)</option>
+                    <option value="swing">Swing Trading (Days)</option>
+                    <option value="position">Position Trading (Weeks/Months)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Win Rate (%) <span class="required">*</span></label>
+                <input type="number" name="winRate" required min="50" max="100" step="0.1" placeholder="Minimum 50%">
+                <p class="help-text">Must be 50% or higher</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Risk/Reward Ratio <span class="required">*</span></label>
+                <input type="text" name="riskReward" required placeholder="e.g., 1:2, 1:3">
+                <p class="help-text">Must be 1:2 or better</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Strategy Description <span class="required">*</span></label>
+                <textarea name="strategyDescription" required placeholder="Describe your trading strategy in detail. Include entry/exit rules, indicators used, and what makes it unique."></textarea>
+                <p class="help-text">Please provide a comprehensive explanation of your strategy</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Pine Script Code (Optional but Recommended)</label>
+                <textarea name="pineScriptCode" rows="10" placeholder="Paste your full Pine Script code here... No character limit!"></textarea>
+                <p class="help-text">Paste your complete Pine Script code - supports unlimited length</p>
+                <div class="file-upload-note">
+                    <strong>💡 Tip:</strong> You can paste very long Pine Script code directly here, or upload a file below
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>OR Upload Pine Script File</label>
+                <input type="file" name="pineScriptFile" accept=".txt,.pine,.js">
+                <p class="help-text">Upload .txt or .pine file (Max 10MB)</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Risk Management Approach <span class="required">*</span></label>
+                <textarea name="riskManagement" required placeholder="Explain how you manage risk (position sizing, stop loss, take profit, etc.)"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Backtesting Results/Proof</label>
+                <textarea name="backtesting" placeholder="Describe your backtesting results or provide links to verified trading history"></textarea>
+                <p class="help-text">Optional but highly recommended. Include any performance metrics or links to verified results.</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Why is your strategy NON-REPAINT? <span class="required">*</span></label>
+                <textarea name="nonRepaint" required placeholder="Explain how your strategy ensures signals don't repaint"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Instagram Handle (Optional)</label>
+                <input type="text" name="instagram" placeholder="@yourusername">
+                <p class="help-text">For winner announcement purposes</p>
+            </div>
+            
+            <div class="form-group">
+                <label>Additional Comments or Questions</label>
+                <textarea name="comments" placeholder="Any additional information you'd like to share"></textarea>
+            </div>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="terms" required>
+                    <span>I confirm that my strategy meets all the entry criteria (50%+ win rate, 1:2+ risk/reward, non-repaint) and I agree to submit detailed documentation if selected as a finalist. <span class="required">*</span></span>
+                </label>
+            </div>
+            
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="consent" required>
+                    <span>I consent to AutoTradeGenius using my strategy name and results for promotional purposes if I win a prize. <span class="required">*</span></span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">Submit Entry</button>
+        </form>
+        
+        <div class="footer">
+            <h3>Powered by AutoTradeGenius</h3>
+            <p>Trade smarter with our Auto Trading Bots - No emotions, just results</p>
+            <p>Connect multiple accounts seamlessly with our Trading Bridge Service</p>
+            <p style="margin-top: 20px;">Questions? Email us at: <strong>autotradegenius@gmail.com</strong></p>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('competitionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMsg = document.getElementById('successMessage');
+        const errorMsg = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            // Hide previous messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    successMsg.style.display = 'block';
+                    form.reset();
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Entry';
+            }
+        });
+    </script>
+</body>
+</html>
